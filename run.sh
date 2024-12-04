@@ -1,5 +1,5 @@
 #/bin/bash
-set -e
+set -xe
 
 ## Generating Topology
 echo "Generating Topology"
@@ -37,14 +37,14 @@ echo "------------------------------------------------------------------------"
 echo "Equilibration - Phase 1..."
 curl -O http://www.mdtutorials.com/gmx/lysozyme/Files/nvt.mdp
 gmx grompp -f nvt.mdp -c em.gro -r em.gro -p topol.top -o nvt.tpr
-gmx mdrun -deffnm nvt
+gmx mdrun -v -deffnm nvt
 echo "------------------------------------------------------------------------"
 
 ## Phase 2
 echo "Equilibration - Phase 2..."
 curl -O http://www.mdtutorials.com/gmx/lysozyme/Files/npt.mdp
 gmx grompp -f npt.mdp -c nvt.gro -r nvt.gro -t nvt.cpt -p topol.top -o npt.tpr
-gmx mdrun -deffnm npt
+gmx mdrun -v -deffnm npt
 echo "------------------------------------------------------------------------"
 
 
@@ -52,9 +52,8 @@ echo "------------------------------------------------------------------------"
 echo "Production MD"
 curl -O http://www.mdtutorials.com/gmx/lysozyme/Files/md.mdp
 gmx grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -o md_0_1.tpr
-gmx mdrun -deffnm md_0_1
+gmx mdrun -v -deffnm md_0_1
 echo "------------------------------------------------------------------------"
-
 
 ### Running GROMACS ON GPU
 # gmx mdrun -deffnm md_0_1 -nb gp
@@ -63,4 +62,3 @@ echo "------------------------------------------------------------------------"
 # gmx trjconv -s md_0_1.tpr -f md_0_1.xtc -o md_0_1_noPBC.xtc -pbc mol -center
 # gmx rms -s md_0_1.tpr -f md_0_1_noPBC.xtc -o rmsd.xvg -tu ns
 # gmx rms -s em.tpr -f md_0_1_noPBC.xtc -o rmsd_xtal.xvg -tu ns
-
