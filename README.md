@@ -2,7 +2,7 @@
 
 ## Prerequisites
 - [Gromacs](https://www.gromacs.org/)
-- [curl](0https://curl.se/)
+- [curl](https://curl.se/)
 
 ## Generate Topology
 1. Download the Protein Structure [1AKI](https://www.rcsb.org/structure/1aki)
