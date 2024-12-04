@@ -9,14 +9,16 @@
 
 ## Quick Start
 > [!TIP]
-> You can run the commands sequentially or run the shell script:
+> You can run the commands sequentially by your own or run the shell script:
 ```bash
 ./run.sh
 ```
+> [!TIP]
 > Also, if you want to clean the generated files, run:
 ```bash
 ./clean.sh
 ```
+___
 
 
 ### Generate Topology
